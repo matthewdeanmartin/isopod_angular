@@ -1,0 +1,21 @@
+<div>
+  <h2>Isopod Adventure</h2>
+  <p>Current Location: {{ (gameState$ | async)?.currentLocation || 'Unknown Location' }}</p>
+
+  <!-- Use *ngIf to check that currentLocation is defined and locations is not undefined -->
+  <ng-container *ngIf="(gameState$ | async) as gameState">
+    <ng-container *ngIf="gameState.currentLocation && gameState.locations && gameState.locations[gameState.currentLocation] as locations">
+      <button *ngFor="let location of locations" (click)="goToLocation(location)">
+        Go to {{ location }}
+      </button>
+    </ng-container>
+
+    <!-- Fallback message or UI if there are no locations -->
+    <p *ngIf="!gameState.locations || !gameState.currentLocation || !gameState.locations[gameState.currentLocation]">
+      No available locations to navigate to.
+    </p>
+  </ng-container>
+
+  <app-actions></app-actions>
+  <app-inventory></app-inventory>
+</div>
