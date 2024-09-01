@@ -1,2 +1,17 @@
-<!-- Define the actions UI like move buttons, collect item buttons -->
-<p>Actions will appear here.</p>
+<div>
+  <h4>Actions</h4>
+  <div *ngIf="gameState$ | async as gameState">
+    <div *ngIf="gameState.currentLocation && gameState.locations[gameState.currentLocation] as locations">
+      <h5>Move to:</h5>
+      <button *ngFor="let location of locations" (click)="moveTo(location)">
+        {{ location }}
+      </button>
+    </div>
+    <div>
+      <h5>Collect Items:</h5>
+      <li *ngFor="let item of itemsAtCurrentLocation">
+        <button (click)="collectItem(item)">Collect {{ item }}</button>
+      </li>
+    </div>
+  </div>
+</div>

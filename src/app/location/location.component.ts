@@ -1,15 +1,3 @@
-// import { Component } from '@angular/core';
-//
-// @Component({
-//   selector: 'app-location',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './location.component.html',
-//   styleUrl: './location.component.scss'
-// })
-// export class LocationComponent {
-//
-// }
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from '../game.service';
@@ -19,10 +7,12 @@ import { CommonModule } from '@angular/common';
   selector: 'app-location',
   standalone: true,
   templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss']
+  styleUrls: ['./location.component.scss'],
+  imports: [CommonModule]
 })
 export class LocationComponent implements OnInit {
   locationName: string='';
+  itemsAtLocation: string[] = [];
 
   constructor(private route: ActivatedRoute, private gameService: GameService) {}
 

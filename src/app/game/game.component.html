@@ -5,9 +5,43 @@
   <!-- Use *ngIf to check that currentLocation is defined and locations is not undefined -->
   <ng-container *ngIf="(gameState$ | async) as gameState">
     <ng-container *ngIf="gameState.currentLocation && gameState.locations && gameState.locations[gameState.currentLocation] as locations">
-      <button *ngFor="let location of locations" (click)="goToLocation(location)">
-        Go to {{ location }}
-      </button>
+<!--      <button *ngFor="let location of locations" (click)="goToLocation(location)">-->
+<!--        Go to {{ location }}-->
+<!--      </button>-->
+
+      <!-- Current Location -->
+      <div class="current-location">
+        <h2>Current Location: {{ (gameState$ | async)?.currentLocation }}</h2>
+        <app-location/>
+      </div>
+
+      <!-- Adjacent Locations -->
+      <div class="adjacent-locations">
+        <h3>Adjacent Locations:</h3>
+        <button *ngFor="let location of gameState.locations[gameState.currentLocation]"
+                (click)="goToLocation(location)">
+          Go to {{ location }}
+        </button>
+      </div>
+
+      <!-- Items at Current Location -->
+      <div class="items-at-location">
+        <h3>Items Available Here:</h3>
+        <ul>
+          <li *ngFor="let item of itemsAtCurrentLocation">
+            {{ item }} <button (click)="collectItem(item)">Collect</button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Player's Inventory -->
+      <div class="player-inventory">
+        <h3>Your Inventory:</h3>
+        <ul>
+          <li *ngFor="let item of (inventory$ | async)">{{ item }}</li>
+        </ul>
+      </div>
+
     </ng-container>
 
     <!-- Fallback message or UI if there are no locations -->
@@ -16,6 +50,11 @@
     </p>
   </ng-container>
 
-  <app-actions></app-actions>
-  <app-inventory></app-inventory>
+
+  <!-- Win Message -->
+  <div class="win-message" *ngIf="gameWon$ | async">
+    <h2>Congratulations! You've found all the items and won the game!</h2>
+  </div>
+<!--  <app-actions></app-actions>-->
+<!--  <app-inventory></app-inventory>-->
 </div>

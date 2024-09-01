@@ -1,4 +1,6 @@
 <h3>{{ locationName }}</h3>
-<button (click)="collectItem('Cookie Crumb')">Collect Cookie Crumb</button>
-<button (click)="collectItem('Isopod Friend')">Collect Isopod Friend</button>
-<button (click)="collectItem('Place to Hide')">Collect Place to Hide</button>
+<ul>
+  <li *ngFor="let item of itemsAtLocation">
+    <button (click)="collectItem(item)">Collect {{ item }}</button>
+  </li>
+</ul>
